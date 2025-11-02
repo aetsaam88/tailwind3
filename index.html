@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCR Construction Clone (Tailwind)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#ff6f00', // Matches --primary-color from your CSS
+                        'background': '#f7f7f7', // Matches --background-color
+                        'dark-text': '#333333',
+                        'light-gray-text': '#666666',
+                    },
+                    spacing: {
+                        'header-height': '80px',
+                    }
+                }
+            }
+        }
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-KxQ4UokRRA0QjTk2qVvK3kqEmLrgw1E6sCWWcm1mKjqUo8r+4TxDygW2mt6dI/7/8aY4T0ZwWjzVbK+h0d0P9g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+</head>
+<body class="font-sans text-dark-text">
+<header class="main-header absolute top-0 left-0 w-full z-20">
+  <div class="header-content max-w-7xl mx-auto px-5 py-5 flex justify-between items-center text-white">
+    <!-- Logo -->
+    <div class="logo flex items-center text-xl font-normal">
+      <div class="logo-box bg-primary px-3 py-1 mr-1.5 font-bold text-xl">MCR</div>
+      Construction
+    </div>
+
+    <!-- Menu Icon -->
+    <div
+      class="menu-icon text-3xl cursor-pointer text-white hover:text-primary md:hidden"
+      id="menu-icon"
+    >
+      &#9776;
+    </div>
+
+    <!-- Navigation -->
+    <nav class="main-nav hidden md:flex items-center md:flex-row" id="main-nav">
+      <ul
+        class="md:flex md:items-center py-2 md:py-0 border-t border-b border-white border-opacity-50 md:border-none"
+      >
+        <li><a href="service.html" class="block md:inline-block px-4 py-2 text-lg font-medium hover:text-black transition duration-300">Services</a></li>
+        <li><a href="projects.html" class="block md:inline-block px-4 py-2 text-lg font-medium hover:text-black transition duration-300">Projects</a></li>
+        <li><a href="about.html" class="block md:inline-block px-4 py-2 text-lg font-medium hover:text-black transition duration-300">About Us</a></li>
+        <li><a href="career.html" class="block md:inline-block px-4 py-2 text-lg font-medium hover:text-black transition duration-300">Careers</a></li>
+        <li><a href="contact.html" class="block md:inline-block px-4 py-2 text-lg font-medium hover:text-black transition duration-300">Contact</a></li>
+      </ul>
+      <a
+        href="#"
+        class="btn-call-now bg-primary text-white py-4 px-8 ml-5 font-bold text-base uppercase transition duration-300 hover:bg-orange-700 hover:text-black md:mt-0 mt-4 block w-full text-center md:w-auto"
+      >
+        Call Now!
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<main
+  class="hero-section relative h-screen w-full bg-cover bg-center flex items-center"
+  style="background-image: url('header.avif');"
+>
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+
+  <div
+    class="hero-content relative z-10 max-w-7xl mx-auto px-5 md:mt-40 md:ml-5 text-white text-left md:text-left text-center"
+    id="hero-content"
+  >
+    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-5 max-w-3xl">
+      Building a Concrete Future
+    </h1>
+    <p class="text-xl sm:text-2xl font-normal mb-8 opacity-90">
+      Honest, Reliable Builders since 1968
+    </p>
+    <div class="hero-actions flex gap-3 justify-center md:justify-start">
+      <a
+        href="#"
+        class="btn btn-primary bg-primary text-white border-2 border-primary py-3 px-6 rounded font-bold uppercase tracking-wider text-sm transition duration-300 hover:bg-orange-700 hover:border-orange-700"
+        >View Projects</a
+      >
+      <a
+        href="#"
+        class="btn btn-secondary bg-transparent text-white border-2 border-white py-3 px-6 rounded font-bold uppercase tracking-wider text-sm transition duration-300 hover:bg-white hover:bg-opacity-10"
+        >Contact Us</a
+      >
+    </div>
+  </div>
+</main>
+
+<!-- JavaScript -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuIcon = document.getElementById("menu-icon");
+    const navMenu = document.getElementById("main-nav");
+    const header = document.querySelector(".main-header");
+    const heroContent = document.getElementById("hero-content");
+
+    function toggleMenu(forceOpen = false) {
+      if (window.innerWidth <= 768) {
+        navMenu.classList.toggle("hidden", !forceOpen);
+        navMenu.classList.toggle("flex", forceOpen);
+        navMenu.classList.toggle("flex-col", forceOpen);
+
+        if (forceOpen) {
+          // When menu opens
+          navMenu.classList.add(
+            "absolute",
+            "top-full",
+            "left-0",
+            "w-full",
+            "bg-primary",
+            "shadow-lg",
+            "z-30"
+          );
+          navMenu.classList.remove("md:flex");
+          header.classList.add("bg-black");
+          if (heroContent) heroContent.classList.add("hidden");
+        } else {
+          // When menu closes
+          navMenu.classList.remove(
+            "absolute",
+            "top-full",
+            "left-0",
+            "w-full",
+            "bg-primary",
+            "shadow-lg",
+            "z-30"
+          );
+          header.classList.remove("bg-black");
+          if (heroContent) heroContent.classList.remove("hidden");
+        }
+      }
+    }
+
+    // Toggle on click
+    menuIcon.addEventListener("click", function () {
+      const isHidden = navMenu.classList.contains("hidden");
+      toggleMenu(isHidden);
+    });
+
+    // Re-apply desktop styling on resize
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) {
+        navMenu.classList.remove(
+          "hidden",
+          "flex",
+          "flex-col",
+          "absolute",
+          "top-full",
+          "left-0",
+          "w-full",
+          "bg-primary",
+          "shadow-lg"
+        );
+        navMenu.classList.add("md:flex");
+        header.classList.remove("bg-black");
+        if (heroContent) heroContent.classList.remove("hidden");
+      } else if (!navMenu.classList.contains("hidden")) {
+        toggleMenu(true);
+      }
+    });
+  });
+</script>
+
+
+    <section class="info-strip bg-background p-10 md:px-5 w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
+        <div class="info-content flex-grow md:max-w-[65%] text-dark-text">
+            <p class="subtitle text-base font-bold mb-1 opacity-80">Building Is What We Do</p>
+            <h2 class="title text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-primary">MCR Construction Is Leading Quality Projects</h2>
+        </div>
+        <a href="#" class="btn-read-more bg-primary text-white py-5 px-10 text-base font-bold rounded-sm whitespace-nowrap transition duration-300 hover:bg-orange-700 flex-shrink-0">Read More</a>
+    </section>
+
+    <section class="info-image-section bg-white py-20 px-5">
+        <div class="content-wrapper max-w-7xl mx-auto flex flex-col md:flex-row items-start gap-10">
+            <div class="text-column md:w-5/12 md:pr-5">
+                <div class="heading-area">
+                    <hr class="title-line w-10 h-0.5 bg-dark-text border-none mb-4">
+                    <h2 class="title-heading text-4xl font-semibold text-dark-text mt-0">Commercial</h2>
+                </div>
+                <p class="text-base leading-relaxed text-light-gray-text mb-6">I’m a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page.</p>
+                <p class="text-base leading-relaxed text-light-gray-text mb-6">This is a great space to write a long text about your company and your services. You can use this space to go into a little more detail about your company. Talk about your team and what services you provide. Tell your visitors the story of how you came up with the idea for your business and what makes you different from your competitors.</p>
+            </div>
+            <div class="image-column flex-1 overflow-hidden h-96 md:h-[500px]">
+                <img src="content_wraper.avif" alt="Commercial Building Construction" class="responsive-image w-full h-full object-cover block">
+            </div>
+        </div>
+    </section>
+
+    <section class="info-image-section reversed bg-white py-20 px-5">
+        <div class="content-wrapper max-w-7xl mx-auto flex flex-col md:flex-row-reverse items-start gap-10">
+            <div class="text-column md:w-5/12 md:pl-5">
+                <div class="heading-area">
+                    <hr class="title-line w-10 h-0.5 bg-dark-text border-none mb-4">
+                    <h2 class="title-heading text-4xl font-semibold text-dark-text mt-0">Infrastructure</h2>
+                </div>
+                <p class="text-base leading-relaxed text-light-gray-text mb-6">I’m a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font.</p>
+                <p class="text-base leading-relaxed text-light-gray-text mb-6">This is a great space to write a long text about your company and your services. You can use this space to go into a little more detail about your company. Talk about your team and what services you provide.</p>
+            </div>
+            <div class="image-column flex-1 overflow-hidden h-96 md:h-[500px]">
+                <img src="infra.avif" alt="Infrastructure Construction" class="responsive-image w-full h-full object-cover block">
+            </div>
+        </div>
+    </section>
+
+    <section class="info-image-section bg-white py-20 px-5">
+        <div class="content-wrapper max-w-7xl mx-auto flex flex-col md:flex-row items-start gap-10">
+            <div class="image-column large-image flex-1 overflow-hidden h-96 md:h-[500px] lg:h-[600px]">
+                <img src="resi2.avif" alt="Residential Framing" class="responsive-image w-full h-full object-cover block">
+            </div>
+            <div class="text-column right-content md:w-5/12 md:pl-5">
+                <div class="heading-area">
+                    <hr class="title-line w-10 h-0.5 bg-dark-text border-none mb-4">
+                    <h2 class="title-heading text-4xl font-semibold text-dark-text mt-0">Residential</h2>
+                </div>
+                <p class="text-base leading-relaxed text-light-gray-text mb-6">I’m a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page.</p>
+                <p class="text-base leading-relaxed text-light-gray-text mb-6">I’m a great place for you to tell a story and let your users know a little more about you.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section relative bg-cover bg-center py-24 min-h-[600px] px-5" style="background-image: url('comp.avif');">
+        <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+        <div class="about-content-wrapper relative z-20 max-w-7xl mx-auto lg:w-1/2 text-white">
+            
+            <div class="about-header">
+                <p class="who-we-are text-lg font-medium text-primary uppercase tracking-wider mb-1">Who We Are</p>
+                <h2 class="section-title text-4xl sm:text-5xl font-extrabold leading-tight text-primary mb-5">About Our Company</h2>
+                <p class="description-text text-base leading-relaxed mb-10">I’m a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. I’m a great place for you to tell a story and let your users know more about you.</p>
+            </div>
+
+            <div class="stats-grid flex flex-wrap justify-start gap-5 sm:gap-10 border-b border-white border-opacity-50 pb-5 mb-10">
+                <div class="stat-item">
+                    <span class="stat-number text-4xl font-extrabold leading-tight block mb-1">1968</span>
+                    <span class="stat-label text-xs uppercase text-white text-opacity-70 border-t border-white border-opacity-50 pt-1 block w-20">Year of Establishment</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number text-4xl font-extrabold leading-tight block mb-1">282</span>
+                    <span class="stat-label text-xs uppercase text-white text-opacity-70 border-t border-white border-opacity-50 pt-1 block w-20">Projects Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number text-4xl font-extrabold leading-tight block mb-1">150</span>
+                    <span class="stat-label text-xs uppercase text-white text-opacity-70 border-t border-white border-opacity-50 pt-1 block w-20">Professional Employees</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number text-4xl font-extrabold leading-tight block mb-1">35</span>
+                    <span class="stat-label text-xs uppercase text-white text-opacity-70 border-t border-white border-opacity-50 pt-1 block w-20">Business Partners</span>
+                </div>
+            </div>
+
+            <div class="signature-area text-white">
+                <p class="text-base italic mb-1">Aetsaam</p>
+                <p class="ceo-name text-lg font-bold">Aaron Masterson</p>
+                <p class="ceo-title text-sm opacity-70">CEO, MCR Construction</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <section class="service-strip bg-background p-10 md:px-5 w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
+        <div class="strip-content-area flex-grow md:max-w-[65%] text-dark-text">
+            <p class="service-subtitle text-base font-bold mb-1 opacity-80">Our Services</p>
+            <h2 class="service-title text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-primary">We Offer a Range of Services to Meet Your Needs</h2>
+            <p class="service-paragraph text-base leading-relaxed text-light-gray-text mt-4">I’m a paragraph. Click here to add your own text and edit me. Let your users get to know you.</p>
+        </div>
+        <a href="#" class="btn-read-more bg-primary text-white py-5 px-10 text-base font-bold rounded-sm whitespace-nowrap transition duration-300 hover:bg-orange-700 flex-shrink-0">Read More</a>
+    </section>
+
+    <section class="services-grid-section bg-background py-10 flex justify-center">
+        <div class="services-grid max-w-7xl w-11/12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-fr">
+
+            <div class="service-item bg-white p-6 sm:p-10 text-center min-h-[220px] m-1.5 flex flex-col justify-center items-center border-r border-b border-gray-100 lg:border-r lg:border-b last:border-b-0 sm:last:border-r sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(n+5)]:border-b-0 sm:[&:nth-child(n+7)]:border-b-0">
+                <img src="1.png" alt="Commercial Construction" class="icon w-16 h-16 mb-4">
+                <p class="text-lg font-medium leading-tight text-dark-text">Commercial<br>Construction</p>
+            </div>
+
+            <div class="service-item bg-white p-6 sm:p-10 text-center min-h-[220px] m-1.5 flex flex-col justify-center items-center border-r border-b border-gray-100 lg:border-r lg:border-b sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(n+5)]:border-b-0">
+                <img src="2.png" alt="Residential Construction" class="icon w-16 h-16 mb-4">
+                <p class="text-lg font-medium leading-tight text-dark-text">Residential<br>Construction</p>
+            </div>
+
+            <div class="service-item bg-white p-6 sm:p-10 text-center min-h-[220px] m-1.5 flex flex-col justify-center items-center border-r border-b border-gray-100 lg:border-r lg:border-b sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(n+5)]:border-b-0">
+                <img src="3.png" alt="Pre Construction" class="icon w-16 h-16 mb-4">
+                <p class="text-lg font-medium leading-tight text-dark-text">Pre-<br>Construction</p>
+            </div>
+
+            <div class="service-item bg-white p-6 sm:p-10 text-center min-h-[220px] m-1.5 flex flex-col justify-center items-center border-r border-b border-gray-100 lg:border-r lg:border-b sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(n+5)]:border-b-0">
+                <img src="4.png" alt="Site Management" class="icon w-16 h-16 mb-4">
+                <p class="text-lg font-medium leading-tight text-dark-text">Site<br>Management</p>
+            </div>
+
+            <div class="service-item bg-white p-6 sm:p-10 text-center min-h-[220px] m-1.5 flex flex-col justify-center items-center border-r border-b border-gray-100 lg:border-r lg:border-b sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(n+5)]:border-b-0 sm:[&:nth-child(n+7)]:border-b-0">
+                <img src="5.png" alt="Special Projects" class="icon w-16 h-16 mb-4">
+                <p class="text-lg font-medium leading-tight text-dark-text">Special<br>Projects</p>
+            </div>
+
+            <div class="service-item bg-white p-6 sm:p-10 text-center min-h-[220px] m-1.5 flex flex-col justify-center items-center border-r border-b border-gray-100 lg:border-r lg:border-b sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(n+5)]:border-b-0 sm:[&:nth-child(n+7)]:border-b-0">
+                <img src="6.png" alt="Infrastructure Construction" class="icon w-16 h-16 mb-4">
+                <p class="text-lg font-medium leading-tight text-dark-text">Infrastructure<br>Construction</p>
+            </div>
+
+            <div class="service-item bg-white p-6 sm:p-10 text-center min-h-[220px] m-1.5 flex flex-col justify-center items-center border-r border-b border-gray-100 lg:border-r lg:border-b sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(n+5)]:border-b-0 last:border-b-0">
+                <img src="7.png" alt="Civil Engineering" class="icon w-16 h-16 mb-4">
+                <p class="text-lg font-medium leading-tight text-dark-text">Civil<br>Engineering</p>
+            </div>
+
+            <div class="service-item bg-white p-6 sm:p-10 text-center min-h-[220px] m-1.5 flex flex-col justify-center items-center border-r border-b border-gray-100 lg:border-r lg:border-b sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(n+5)]:border-b-0 last:border-b-0">
+                <img src="8.png" alt="Landscape Construction" class="icon w-16 h-16 mb-4">
+                <p class="text-lg font-medium leading-tight text-dark-text">Landscape<br>Construction</p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer class="bg-background text-dark-text py-16 px-5 text-base">
+        <div class="footer-container max-w-7xl mx-auto">
+            
+            <div class="footer-main flex flex-wrap justify-between items-start pb-10 sm:pb-16 border-b border-gray-200">
+                
+                <div class="footer-col logo-col w-full sm:w-1/2 lg:w-1/6 mb-5 sm:mb-0">
+                    <div class="footer-logo text-xl font-bold inline-block bg-primary text-white px-2 py-1 mr-1">MCR</div>
+                    Construction
+                </div>
+
+                <div class="footer-col contact-col w-full sm:w-1/2 lg:w-1/5 mb-5 sm:mb-0">
+                    <h3 class="font-bold text-lg mb-3">Head Office</h3>
+                    <p class="mb-1">500 Terry Francine Street</p>
+                    <p class="mb-3">San Francisco, CA 94158</p>
+                    <p class="mb-1">123-456-7890</p>
+                    <p><a href="mailto:info@mysite.com" class="hover:underline text-primary">info@mysite.com</a></p>
+                </div>
+
+                <div class="footer-col social-col w-full sm:w-1/2 lg:w-1/6 mb-5 sm:mb-0">
+                    <h3 class="font-bold text-lg mb-3">Socials</h3>
+                    <p class="mb-1"><a href="#" class="hover:underline">Facebook</a></p>
+                    <p class="mb-1"><a href="#" class="hover:underline">Instagram</a></p>
+                    <p><a href="#" class="hover:underline">LinkedIn</a></p>
+                </div>
+
+                <div class="footer-col inquiries-col w-full sm:w-1/2 lg:w-1/5 mb-5 sm:mb-0">
+                    <h3 class="font-bold text-lg mb-3">Inquiries</h3>
+                    <p>For any inquiries, questions</p>
+                    <p>or commendations, please</p>
+                    <p>call: 123-456-7890</p>
+                </div>
+                
+                <div class="footer-col button-col w-full lg:w-1/6 flex justify-start lg:justify-end items-start mt-5 lg:mt-0">
+                    <a href="#" class="btn-contact-us bg-primary text-white py-3 px-6 text-sm font-bold rounded-sm uppercase tracking-wider transition duration-300 hover:bg-orange-700 w-full sm:w-auto lg:w-full max-w-xs sm:max-w-none">Contact Us</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom flex flex-col sm:flex-row justify-between items-center pt-5 text-xs text-light-gray-text">
+                <p class="mb-2 sm:mb-0">&copy; 2025 by MCR Construction. Powered and secured by <a href="#" class="wix-link hover:underline font-bold">Aetsaam</a></p>
+                <p><a href="#top" class="go-up-link hover:underline font-bold">Go Up</a></p>
+            </div>
+            
+        </div>
+    </footer>
+
+</body>
+</html>
